@@ -12,8 +12,58 @@
 
 ## Installation
 
-Install OpenHMI via npm:
+Install OpenHMI:
+
+Using npm:
 
 ```bash
 npm install open-hmi
+```
+
+Using yarn:
+
+```bash
+yarn add open-hmi
+```
+
+## Development
+
+Clone the repository:
+
+```bash
+git clone https://github.com/yourusername/open-hmi.git
+```
+
+Install the dependencies:
+
+```bash
+cd open-hmi
+```
+
+Install the dependencies:
+
+Using npm:
+
+```bash
+npm install
+```
+
+Using yarn:
+
+```bash
+yarn
+```
+
+Start the development server:
+
+Using npm:
+
+```bash
+npm run dev
+```
+
+Using yarn:
+
+```bash
+yarn dev
 ```
