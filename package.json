@@ -18,6 +18,10 @@
     "control-systems"
   ],
   "author": "Jiri Svacha",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/svachaj/open-hmi"
+  },
   "license": "MIT",
   "devDependencies": {
     "typescript": "^4.9.5",
