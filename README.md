@@ -34,7 +34,7 @@ Clone the repository:
 git clone https://github.com/yourusername/open-hmi.git
 ```
 
-Install the dependencies:
+Navigate to the project directory:
 
 ```bash
 cd open-hmi
