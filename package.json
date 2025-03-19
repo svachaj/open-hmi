@@ -1,0 +1,26 @@
+{
+  "name": "open-hmi",
+  "version": "0.1.0",
+  "description": "A simple library of pure web components for HMIs written in TypeScript and built with Vite.",
+  "main": "dist/open-hmi.umd.js",
+  "module": "dist/open-hmi.es.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [
+    "web-components",
+    "typescript",
+    "vite",
+    "hmi",
+    "ui",
+    "control-systems"
+  ],
+  "author": "Jiri Svacha",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^4.9.5",
+    "vite": "^4.0.0"
+  }
+}
