@@ -1,3 +1,9 @@
 
-echo "Running tests before commit..."
-npm test 
+
+# Format code
+echo "Running tests and formatting code before commit..."
+
+yarn format
+
+# Run tests
+yarn test 
