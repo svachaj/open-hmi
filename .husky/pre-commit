@@ -1,8 +1,9 @@
-#!/usr/bin/env sh
-. "$(dirname -- "$0")/_/husky.sh"
+
 
 # Format code
-pnpm format
+echo "Running tests and formatting code before commit..."
+
+yarn format
 
 # Run tests
-pnpm test 
+yarn test 
