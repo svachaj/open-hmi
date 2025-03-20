@@ -1,2 +1,2 @@
-import "./components/hmi-counter";
-export * from "./components/hmi-counter";
+export { HmiCounter } from "./components/hmi-counter";
+export default function HmiComponents(): null;
