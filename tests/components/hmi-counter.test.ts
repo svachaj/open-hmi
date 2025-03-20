@@ -5,7 +5,7 @@ describe("HmiCounter", () => {
   let counter: HmiCounter;
 
   beforeEach(() => {
-    // Register the custom element if not already registered
+    // Register the custom element if not already registered and create a new instance
     if (!customElements.get("hmi-counter")) {
       customElements.define("hmi-counter", HmiCounter);
     }
@@ -30,9 +30,7 @@ describe("HmiCounter", () => {
 
   it("should increment the count when the + button is clicked", () => {
     const shadowRoot = counter.shadowRoot;
-    const incrementButton = shadowRoot?.querySelector(
-      "button:last-of-type"
-    ) as HTMLButtonElement;
+    const incrementButton = shadowRoot?.querySelector("button:last-of-type") as HTMLButtonElement;
     const counterSpan = shadowRoot?.querySelector("span");
 
     incrementButton?.click();
@@ -44,12 +42,8 @@ describe("HmiCounter", () => {
 
   it("should decrement the count when the - button is clicked", () => {
     const shadowRoot = counter.shadowRoot;
-    const decrementButton = shadowRoot?.querySelector(
-      "button:first-of-type"
-    ) as HTMLButtonElement;
-    const incrementButton = shadowRoot?.querySelector(
-      "button:last-of-type"
-    ) as HTMLButtonElement;
+    const decrementButton = shadowRoot?.querySelector("button:first-of-type") as HTMLButtonElement;
+    const incrementButton = shadowRoot?.querySelector("button:last-of-type") as HTMLButtonElement;
     const counterSpan = shadowRoot?.querySelector("span");
 
     // First increment to 1
