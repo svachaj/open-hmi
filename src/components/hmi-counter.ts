@@ -1,6 +1,8 @@
 // Type guard for browser environment
 const isBrowser =
-  typeof window !== 'undefined' && typeof document !== 'undefined' && typeof customElements !== 'undefined';
+  typeof window !== 'undefined' &&
+  typeof document !== 'undefined' &&
+  typeof customElements !== 'undefined';
 
 // Define a type for the constructor
 type HTMLElementConstructor = typeof HTMLElement;
@@ -80,5 +82,8 @@ export class HmiCounter extends BaseElement {
 
 // Only register the component in browser environments
 if (isBrowser) {
-  customElements.define('hmi-counter', HmiCounter as unknown as CustomElementConstructor);
+  customElements.define(
+    'hmi-counter',
+    HmiCounter as unknown as CustomElementConstructor,
+  );
 }

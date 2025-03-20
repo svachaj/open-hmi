@@ -1,5 +1,9 @@
 // Dynamically import components only in browser environments
-if (typeof window !== 'undefined' && typeof document !== 'undefined' && typeof customElements !== 'undefined') {
+if (
+  typeof window !== 'undefined' &&
+  typeof document !== 'undefined' &&
+  typeof customElements !== 'undefined'
+) {
   // Import and register components
   import('./components/hmi-counter');
 }
