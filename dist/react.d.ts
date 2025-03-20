@@ -1,6 +1,6 @@
 /// <reference types="react" />
-export { HmiCounter } from './components/hmi-counter';
-export default function HmiComponents(): null;
+export * from './index';
+export { default } from './index';
 declare global {
     namespace JSX {
         interface IntrinsicElements {
@@ -8,4 +8,4 @@ declare global {
         }
     }
 }
-//# sourceMappingURL=index.d.ts.map
+//# sourceMappingURL=react.d.ts.map

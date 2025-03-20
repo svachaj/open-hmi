@@ -110,3 +110,14 @@ Husky is configured to run tests before each commit, ensuring that only working 
 ```bash
 git commit -m "Your message" --no-verify
 ```
+
+### React
+
+```tsx
+// Import the library with React support
+import 'open-hmi/react';
+
+function App() {
+  return <hmi-counter></hmi-counter>;
+}
+```

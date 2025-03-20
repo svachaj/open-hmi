@@ -1,15 +1,22 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vitest/config";
-import path from "path";
+import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
   build: {
     lib: {
-      entry: path.resolve(__dirname, "src/index.ts"),
+      entry: {
+        'open-hmi': path.resolve(__dirname, 'src/index.ts'),
+        react: path.resolve(__dirname, 'src/react.ts'),
+        vue: path.resolve(__dirname, 'src/vue.ts'),
+      },
       // Global name for UMD/IIFE builds (if needed)
-      name: "HmiWebComponents",
+      name: 'HmiWebComponents',
       // File name pattern for different module formats
-      fileName: (format) => `open-hmi.${format}.js`,
+      fileName: (format, entryName) =>
+        entryName === 'open-hmi'
+          ? `open-hmi.${format}.js`
+          : `${entryName}/index.${format}.js`,
     },
     rollupOptions: {
       // Specify external dependencies if any; for pure web components you may not need this.
@@ -22,11 +29,11 @@ export default defineConfig({
   },
   test: {
     globals: true,
-    environment: "jsdom",
+    environment: 'jsdom',
     coverage: {
-      provider: "v8",
-      reporter: ["text", "html"],
-      exclude: ["node_modules/"],
+      provider: 'v8',
+      reporter: ['text', 'html'],
+      exclude: ['node_modules/'],
     },
   },
 });
