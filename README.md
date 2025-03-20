@@ -2,6 +2,13 @@
 
 **OpenHMI** is an open-source library of pure web components written in TypeScript. It provides lightweight, standards-based custom elements for building human-machine interface (HMI) web applications. OpenHMI is framework-agnostic and is built using modern tooling with Vite for a fast development experience and optimized production builds.
 
+> 🚧 **Under Construction!**
+>
+> **Development Status:**  
+> We have officially started development, and our first production-ready version of the components is scheduled for release by the end of April.
+>
+> Stay tuned for updates!
+
 ## Features
 
 - **Pure Web Components:** Uses the native Custom Elements API.
