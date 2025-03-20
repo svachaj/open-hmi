@@ -30,7 +30,7 @@ export class HmiCounter extends BaseElement {
 
     // Attach a shadow root for encapsulation
     const shadow = (this as unknown as HTMLElement).attachShadow({
-      mode: 'open',
+      mode: "open",
     });
 
     // Create a wrapper div for styling
@@ -83,7 +83,7 @@ export class HmiCounter extends BaseElement {
 // Only register the component in browser environments
 if (isBrowser) {
   customElements.define(
-    'hmi-counter',
-    HmiCounter as unknown as CustomElementConstructor,
+    "hmi-counter",
+    HmiCounter as unknown as CustomElementConstructor
   );
 }
