@@ -1,4 +1,5 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest" />
+import { defineConfig } from "vitest/config";
 import path from "path";
 
 export default defineConfig({
@@ -17,6 +18,15 @@ export default defineConfig({
         // Provide global variable names if external dependencies are specified.
         // globals: {}
       },
+    },
+  },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    coverage: {
+      provider: "v8",
+      reporter: ["text", "html"],
+      exclude: ["node_modules/"],
     },
   },
 });

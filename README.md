@@ -74,3 +74,37 @@ Using yarn:
 ```bash
 yarn dev
 ```
+
+## Testing
+
+The project uses Vitest for unit testing and Husky for git hooks.
+
+Running tests:
+
+Using npm:
+
+```bash
+# Run tests once
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+```
+
+Using yarn:
+
+```bash
+# Run tests once
+yarn test
+
+# Run tests in watch mode
+yarn test:watch
+```
+
+### Git Hooks
+
+Husky is configured to run tests before each commit, ensuring that only working code is committed. If you need to bypass the pre-commit hook for any reason, you can use:
+
+```bash
+git commit -m "Your message" --no-verify
+```
