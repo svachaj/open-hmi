@@ -1,8 +1,6 @@
 
-
-# Format code
 echo "Running tests and formatting code before commit..."
-
+# Format code
 yarn format
 
 # Run tests

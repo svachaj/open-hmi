@@ -1,12 +1,11 @@
-import { HmiCounter } from '..';
-
-// Export component types for direct use
+// Import and re-export component classes
+import { HmiCounter } from './components/hmi-counter';
 export { HmiCounter };
 
-// Default export for dynamic imports in Next.js
+// Default export for dynamic imports
 export default function HmiComponents(): null;
 
-// This makes the custom elements available in JSX automatically
+// Ambient JSX declarations that will be automatically included
 declare global {
   namespace JSX {
     interface IntrinsicElements {

@@ -10,3 +10,4 @@ export declare class HmiCounter extends BaseElement {
     decrement(): void;
 }
 export {};
+//# sourceMappingURL=hmi-counter.d.ts.map
