@@ -34,7 +34,7 @@ describe("HmiCounter", () => {
     const counterSpan = shadowRoot?.querySelector("span");
 
     incrementButton?.click();
-    expect(counterSpan?.textContent).toBe("1");
+    expect(counterSpan?.textContent).toBe("10");
 
     incrementButton?.click();
     expect(counterSpan?.textContent).toBe("2");
