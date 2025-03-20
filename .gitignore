@@ -13,7 +13,6 @@ yarn-error.log*
 .env
 .env.local
 .env.*.local
-package-lock.json
 
 # Editor folders and files
 .vscode/
@@ -31,3 +30,5 @@ Thumbs.db
 *.tmp
 yarn.lock
 .npmrc
+package-lock.json
+pnpm-lock.yaml
