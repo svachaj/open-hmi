@@ -1,12 +1,37 @@
-export class HmiCounter extends HTMLElement {
+// Type guard for browser environment
+const isBrowser =
+  typeof window !== "undefined" &&
+  typeof document !== "undefined" &&
+  typeof customElements !== "undefined";
+
+// Define a type for the constructor
+type HTMLElementConstructor = typeof HTMLElement;
+
+// Create a function that returns the appropriate base class
+function getBaseClass(): HTMLElementConstructor | (new () => Object) {
+  if (isBrowser) {
+    return HTMLElement;
+  }
+  return class DummyElement {};
+}
+
+// Use the function to get the base class
+const BaseElement = getBaseClass();
+
+export class HmiCounter extends BaseElement {
   private _count: number = 0;
   private counterSpan: HTMLSpanElement | null = null;
 
   constructor() {
     super();
 
+    // Skip DOM operations in non-browser environments
+    if (!isBrowser) return;
+
     // Attach a shadow root for encapsulation
-    const shadow = this.attachShadow({ mode: "open" });
+    const shadow = (this as unknown as HTMLElement).attachShadow({
+      mode: "open",
+    });
 
     // Create a wrapper div for styling
     const wrapper = document.createElement("div");
@@ -39,6 +64,7 @@ export class HmiCounter extends HTMLElement {
   }
 
   increment() {
+    if (!isBrowser) return;
     this._count++;
     if (this.counterSpan) {
       this.counterSpan.textContent = this._count.toString();
@@ -46,6 +72,7 @@ export class HmiCounter extends HTMLElement {
   }
 
   decrement() {
+    if (!isBrowser) return;
     this._count--;
     if (this.counterSpan) {
       this.counterSpan.textContent = this._count.toString();
@@ -53,5 +80,10 @@ export class HmiCounter extends HTMLElement {
   }
 }
 
-// Register the custom element (note the tag name must include a hyphen)
-customElements.define("hmi-counter", HmiCounter);
+// Only register the component in browser environments
+if (isBrowser) {
+  customElements.define(
+    "hmi-counter",
+    HmiCounter as unknown as CustomElementConstructor
+  );
+}
