@@ -1,3 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
 
-echo "Running tests before commit..."
-npm test 
+# Format code
+pnpm format
+
+# Run tests
+pnpm test 

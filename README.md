@@ -1,5 +1,7 @@
 # OpenHMI
 
+[![Tests](https://github.com/svachaj/open-hmi/actions/workflows/test.yml/badge.svg)](https://github.com/svachaj/open-hmi/actions/workflows/test.yml)
+
 **OpenHMI** is an open-source library of pure web components written in TypeScript. It provides lightweight, standards-based custom elements for building human-machine interface (HMI) web applications. OpenHMI is framework-agnostic and is built using modern tooling with Vite for a fast development experience and optimized production builds.
 
 > 🚧 **Under Construction!**
