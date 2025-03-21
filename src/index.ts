@@ -1,15 +1,15 @@
 // Dynamically import components only in browser environments
 if (
-  typeof window !== "undefined" &&
-  typeof document !== "undefined" &&
-  typeof customElements !== "undefined"
+  typeof window !== 'undefined' &&
+  typeof document !== 'undefined' &&
+  typeof customElements !== 'undefined'
 ) {
   // Import and register components
-  import("./components/hmi-counter");
+  import('./components/hmi-counter');
 }
 
 // Export types for direct use
-export { HmiCounter } from "./components/hmi-counter";
+export { HmiCounter } from './components/hmi-counter';
 
 // Add empty export component for Next.js dynamic imports
 export default function HmiComponents() {
