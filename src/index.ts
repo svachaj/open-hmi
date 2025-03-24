@@ -6,10 +6,14 @@ if (
 ) {
   // Import and register components
   import('./components/hmi-counter');
+  import('./components/layout/hmi-pane');
+  import('./components/navigation/hmi-navbar');
 }
 
 // Export types for direct use
 export { HmiCounter } from './components/hmi-counter';
+export { HmiNavbar } from './components/navigation/hmi-navbar';
+export { HmiPane } from './components/layout/hmi-pane';
 
 // Add empty export component for Next.js dynamic imports
 export default function HmiComponents() {
@@ -23,6 +27,8 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       'hmi-counter': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
+      'hmi-pane': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
+      'hmi-navbar': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
     }
   }
 }

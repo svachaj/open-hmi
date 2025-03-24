@@ -1,7 +1,4 @@
-declare const BaseElement: {
-    new (): HTMLElement;
-    prototype: HTMLElement;
-} | (new () => Object);
+import { BaseElement } from '../base-element';
 export declare class HmiCounter extends BaseElement {
     private _count;
     private counterSpan;
@@ -9,5 +6,4 @@ export declare class HmiCounter extends BaseElement {
     increment(): void;
     decrement(): void;
 }
-export {};
 //# sourceMappingURL=hmi-counter.d.ts.map
