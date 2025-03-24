@@ -17,3 +17,12 @@ export default function HmiComponents() {
   // It's used for dynamic imports in Next.js
   return null;
 }
+
+// Add JSX declarations
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'hmi-counter': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
+    }
+  }
+}

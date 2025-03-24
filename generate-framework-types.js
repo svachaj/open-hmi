@@ -1,31 +1,34 @@
 // Script to generate framework-specific type definition files
-const fs = require("fs");
-const path = require("path");
+const fs = require('fs');
+const path = require('path');
 
 // Ensure directories exist
-if (!fs.existsSync("dist/react")) {
-  fs.mkdirSync("dist/react", { recursive: true });
+if (!fs.existsSync('dist/react')) {
+  fs.mkdirSync('dist/react', { recursive: true });
 }
 
-if (!fs.existsSync("dist/vue")) {
-  fs.mkdirSync("dist/vue", { recursive: true });
+if (!fs.existsSync('dist/vue')) {
+  fs.mkdirSync('dist/vue', { recursive: true });
 }
 
-// Create React types
-const reactTypes = `import type { HmiCounter } from '..';
+// Create a main React index.d.ts that will be referenced in package.json
+const reactIndexTypes = `import { HmiCounter } from '..';
 
-// This enables using the web components in React/Next.js applications
+// Export component types for direct use
+export { HmiCounter };
+
+// Default export for dynamic imports in Next.js
+export default function HmiComponents(): null;
+
+// This makes the custom elements available in JSX automatically
 declare global {
   namespace JSX {
     interface IntrinsicElements {
-      // The 'any' type here helps prevent SSR type issues
       'hmi-counter': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
       // Add more components as they are created
     }
   }
 }
-
-export {};
 `;
 
 // Create Vue types
@@ -42,66 +45,72 @@ export {};
 `;
 
 // Write files
-fs.writeFileSync("dist/react/index.d.ts", reactTypes);
-fs.writeFileSync("dist/vue/index.d.ts", vueTypes);
+fs.writeFileSync('dist/react/index.d.ts', reactIndexTypes);
+fs.writeFileSync('dist/vue/index.d.ts', vueTypes);
 
-// Also create a README file to explain usage with Next.js
-const usageReadme = `# Using with React and Next.js
+// Create global ambient types that will be automatically included
+const globalAmbientTypes = `/// <reference types="react" />
 
-## Basic Usage with React
+// Add JSX declarations for all web components
+// This file is automatically included when the package is imported
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'hmi-counter': React.DetailedHTMLProps<React.HTMLAttributes<any>, any>;
+      // Add more components as they are created
+    }
+  }
+}
+
+export {};
+`;
+
+// Write the global ambient declarations file
+fs.writeFileSync('dist/global.d.ts', globalAmbientTypes);
+
+// Create a README file for React usage
+const reactReadme = `# Using OpenHMI with React
+
+OpenHMI is designed to work seamlessly with React. The custom elements are automatically typed,
+so you don't need to create any additional type declaration files.
+
+## Basic Usage
 
 \`\`\`tsx
-// Import the components - this registers the custom elements
-import 'open-hmi';
-// Import the type definitions for React
+// Import the package with React support
 import 'open-hmi/react';
 
 function MyComponent() {
-  // Use the component via its HTML tag name
   return <hmi-counter></hmi-counter>;
 }
 \`\`\`
 
 ## Usage with Next.js (or other SSR frameworks)
 
-When using with Next.js, you need to ensure the components are only loaded in browser environments:
+For frameworks with server-side rendering, use dynamic imports:
 
 \`\`\`tsx
 import dynamic from 'next/dynamic';
-import 'open-hmi/react'; // Import just the types
 
 // Import components dynamically with ssr: false
 const HmiComponents = dynamic(
-  () => import('open-hmi'),
+  () => import('open-hmi/react'),
   { ssr: false }
 );
 
 function MyNextComponent() {
   return (
     <>
-      {/* This loads the component only on client-side */}
+      {/* This loads the component script only on client-side */}
       <HmiComponents />
       <hmi-counter></hmi-counter>
     </>
   );
 }
 \`\`\`
-
-## Troubleshooting TypeScript Errors
-
-If you're still seeing TypeScript errors, create a \`custom-elements.d.ts\` file in your project:
-
-\`\`\`ts
-declare namespace JSX {
-  interface IntrinsicElements {
-    'hmi-counter': any;
-  }
-}
-\`\`\`
-
-Make sure this file is included in your tsconfig.json.
 `;
 
-fs.writeFileSync("dist/react/README.md", usageReadme);
+fs.writeFileSync('dist/react/README.md', reactReadme);
 
-console.log("Framework types generated successfully!");
+console.log('Framework types generated successfully!');
