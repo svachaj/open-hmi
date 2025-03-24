@@ -6,8 +6,8 @@ so you don't need to create any additional type declaration files.
 ## Basic Usage
 
 ```tsx
-// Import the package
-import 'open-hmi';
+// Import the package with React support
+import 'open-hmi/react';
 
 function MyComponent() {
   return <hmi-counter></hmi-counter>;
@@ -23,7 +23,7 @@ import dynamic from 'next/dynamic';
 
 // Import components dynamically with ssr: false
 const HmiComponents = dynamic(
-  () => import('open-hmi'),
+  () => import('open-hmi/react'),
   { ssr: false }
 );
 
