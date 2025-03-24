@@ -1,22 +1,4 @@
-// Type guard for browser environment
-const isBrowser =
-  typeof window !== 'undefined' &&
-  typeof document !== 'undefined' &&
-  typeof customElements !== 'undefined';
-
-// Define a type for the constructor
-type HTMLElementConstructor = typeof HTMLElement;
-
-// Create a function that returns the appropriate base class
-function getBaseClass(): HTMLElementConstructor | (new () => Object) {
-  if (isBrowser) {
-    return HTMLElement;
-  }
-  return class DummyElement {};
-}
-
-// Use the function to get the base class
-const BaseElement = getBaseClass();
+import { BaseElement, isBrowser } from '../base-element';
 
 export class HmiCounter extends BaseElement {
   private _count: number = 0;
