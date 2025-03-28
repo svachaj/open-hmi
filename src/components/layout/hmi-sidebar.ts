@@ -1,6 +1,6 @@
 import { BaseElement, isBrowser } from '../../base-element';
 
-export class HmiPane extends BaseElement {
+export class HmiSidebar extends BaseElement {
   constructor() {
     super();
 
@@ -14,9 +14,11 @@ export class HmiPane extends BaseElement {
 
     // Create a wrapper div for styling
     const wrapper = document.createElement('div');
-    wrapper.style.backgroundColor = '#B0B0B0';
-    wrapper.style.color = '#000000';
+    wrapper.style.backgroundColor = '#949494';
+
+    wrapper.style.width = '300px';
     wrapper.style.height = '100%';
+
     // Create a slot element to accept children
     const slot = document.createElement('slot');
 
@@ -31,7 +33,7 @@ export class HmiPane extends BaseElement {
 // Only register the component in browser environments
 if (isBrowser) {
   customElements.define(
-    'hmi-pane',
-    HmiPane as unknown as CustomElementConstructor,
+    'hmi-sidebar',
+    HmiSidebar as unknown as CustomElementConstructor,
   );
 }
