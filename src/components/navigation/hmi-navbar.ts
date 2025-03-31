@@ -37,7 +37,7 @@ export class HmiNavbar extends BaseElement {
                             height: 100%;
                             display: flex;
                             align-items: center;
-                            font-size: 14px;
+                            font-size: 1.1rem;
                             letter-spacing: 0.5px;
                             cursor: pointer;
                             transition: background-color 0.2s;

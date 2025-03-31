@@ -16,7 +16,7 @@ export class HmiSidebar extends BaseElement {
     const wrapper = document.createElement('div');
     wrapper.style.backgroundColor = '#949494';
 
-    wrapper.style.width = '300px';
+    wrapper.style.width = '25rem';
     wrapper.style.height = '100%';
 
     // Create a slot element to accept children
