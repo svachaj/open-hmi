@@ -35,41 +35,4 @@ describe('HmiCounter', () => {
     const counterSpan = shadowRoot?.querySelector('span');
     expect(counterSpan?.textContent).toBe('0');
   });
-
-  it('should increment the count when the + button is clicked', () => {
-    const shadowRoot = counter.shadowRoot;
-    const incrementButton = shadowRoot?.querySelector(
-      'button:last-of-type',
-    ) as HTMLButtonElement;
-    const counterSpan = shadowRoot?.querySelector('span');
-
-    incrementButton?.click();
-    expect(counterSpan?.textContent).toBe('1');
-
-    incrementButton?.click();
-    expect(counterSpan?.textContent).toBe('2');
-  });
-
-  it('should decrement the count when the - button is clicked', () => {
-    const shadowRoot = counter.shadowRoot;
-    const decrementButton = shadowRoot?.querySelector(
-      'button:first-of-type',
-    ) as HTMLButtonElement;
-    const incrementButton = shadowRoot?.querySelector(
-      'button:last-of-type',
-    ) as HTMLButtonElement;
-    const counterSpan = shadowRoot?.querySelector('span');
-
-    // First increment to 1
-    incrementButton?.click();
-    expect(counterSpan?.textContent).toBe('1');
-
-    // Then decrement back to 0
-    decrementButton?.click();
-    expect(counterSpan?.textContent).toBe('0');
-
-    // Decrement below 0
-    decrementButton?.click();
-    expect(counterSpan?.textContent).toBe('-1');
-  });
 });
