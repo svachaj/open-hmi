@@ -17,6 +17,9 @@ export { HmiNavbar } from './components/navigation/hmi-navbar';
 export { HmiPane } from './components/layout/hmi-pane';
 export { HmiSidebar } from './components/layout/hmi-sidebar';
 
+// Export the global provider so final apps can use it
+export { createWsProvider } from './provider/websocket-data-provider';
+
 // Add empty export component for Next.js dynamic imports
 export default function HmiComponents() {
   // This is just a dummy component that doesn't render anything

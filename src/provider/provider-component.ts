@@ -1,74 +1,88 @@
-// import { wsProvider } from './provider'; // Your singleton WebSocket provider
-// import { Message } from './message';
+// src/components/ProviderComponent.ts
+import { BaseElement } from '../base-element';
+import { KeyedDataProvider } from './keyed-data-provider';
+import { Message } from './message';
 
-// /**
-//  * A base class for data-driven components.
-//  * It subscribes to a data provider using the 'pvname' property (and attribute).
-//  * The generic type T represents the expected type of the message value.
-//  */
-// export abstract class ProviderComponent<T> extends HTMLElement {
-//   private _pvName: string | null = null;
-//   // Hold a reference to the subscription callback to allow unsubscription.
-//   private _callback: ((msg: Message<T>) => void) | null = null;
-//   // Last received message.
-//   protected data: Message<T> | null = null;
+export abstract class ProviderComponent<
+  T,
+> extends (BaseElement as typeof HTMLElement) {
+  private _pvName: string | null = null;
+  private _provider: KeyedDataProvider | null = null;
+  private _callback: ((msg: Message<T>) => void) | null = null;
+  protected data: Message<T> | null = null;
 
-//   // Let the attribute system know that "pvname" should be observed.
-//   static get observedAttributes() {
-//     return ['pvname'];
-//   }
+  static get observedAttributes() {
+    return ['pvname'];
+  }
 
-//   // Getter and setter for the pvname property.
-//   get pvname(): string | null {
-//     return this._pvName;
-//   }
-//   set pvname(value: string | null) {
-//     if (this._pvName !== value) {
-//       // If changing from an existing pv, unsubscribe.
-//       if (this._pvName && this._callback) {
-//         wsProvider.unsubscribe<T>(this._pvName, this._callback);
-//       }
-//       this._pvName = value;
-//       // If connected and a valid key is provided, subscribe to the new PV.
-//       if (this.isConnected && this._pvName) {
-//         this.subscribeToPV(this._pvName);
-//       }
-//     }
-//   }
+  get pvname(): string | null {
+    return this._pvName;
+  }
+  set pvname(value: string | null) {
+    if (this._pvName !== value) {
+      if (this._pvName && this._provider && this._callback) {
+        this._provider.unsubscribe<T>(this._pvName, this._callback);
+      }
+      this._pvName = value;
+      if (this.isConnected && this._provider && this._pvName) {
+        this.subscribeToPV(this._pvName);
+      }
+    }
+  }
 
-//   // Reflect attribute changes to the property.
-//   attributeChangedCallback(name: string, _oldValue: string, newValue: string) {
-//     if (name === 'pvname') {
-//       this.pvname = newValue;
-//     }
-//   }
+  attributeChangedCallback(name: string, _oldValue: string, newValue: string) {
+    if (name === 'pvname') {
+      this.pvname = newValue;
+    }
+  }
 
-//   connectedCallback() {
-//     if (this._pvName) {
-//       this.subscribeToPV(this._pvName);
-//     }
-//   }
+  get provider(): KeyedDataProvider | null {
+    return this._provider;
+  }
+  set provider(value: KeyedDataProvider | null) {
+    if (this._provider !== value) {
+      if (this._pvName && this._provider && this._callback) {
+        this._provider.unsubscribe<T>(this._pvName, this._callback);
+      }
+      this._provider = value;
+      if (this.isConnected && this._provider && this._pvName) {
+        this.subscribeToPV(this._pvName);
+      }
+    }
+  }
 
-//   disconnectedCallback() {
-//     if (this._pvName && this._callback) {
-//       wsProvider.unsubscribe<T>(this._pvName, this._callback);
-//       this._callback = null;
-//     }
-//   }
+  connectedCallback() {
+    // Automatically inject global provider if not already set.
+    if (!this._provider && (window as any).__GLOBAL_DATA_PROVIDER__) {
+      this.provider = (window as any).__GLOBAL_DATA_PROVIDER__;
+    }
+    if (this._provider && this._pvName) {
+      this.subscribeToPV(this._pvName);
+    }
+  }
 
-//   // Helper method to subscribe to a PV.
-//   private subscribeToPV(pvName: string) {
-//     // Create the callback that saves the message and calls the abstract update method.
-//     this._callback = (msg: Message<T>) => {
-//       this.data = msg;
-//       this.onDataUpdate();
-//     };
-//     wsProvider.subscribe<T>(pvName, this._callback);
-//   }
+  disconnectedCallback() {
+    if (this._provider && this._pvName && this._callback) {
+      this._provider.unsubscribe<T>(this._pvName, this._callback);
+      this._callback = null;
+    }
+  }
 
-//   /**
-//    * This method is called whenever new data is received.
-//    * Derived classes must implement onDataUpdate to update their UI accordingly.
-//    */
-//   protected abstract onDataUpdate(): void;
-// }
+  private subscribeToPV(key: string) {
+    if (!this._provider) {
+      console.warn('No data provider set for ProviderComponent');
+      return;
+    }
+    this._callback = (msg: Message<T>) => {
+      this.data = msg;
+      this.onDataUpdate();
+    };
+    this._provider.subscribe<T>(key, this._callback);
+  }
+
+  /**
+   * Called when new data is received.
+   * Derived classes must implement onDataUpdate to update their UI.
+   */
+  protected abstract onDataUpdate(): void;
+}

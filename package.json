@@ -51,7 +51,7 @@
     "build:types": "tsc --emitDeclarationOnly --declaration --outDir dist && node generate-framework-types.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\"",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"demo/**/*.ts\"",
     "prepare": "husky install"
   },
   "keywords": [

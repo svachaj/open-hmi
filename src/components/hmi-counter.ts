@@ -1,71 +1,29 @@
-import { BaseElement, isBrowser } from '../base-element';
+// src/components/hmi-counter.ts
+import { ProviderComponent } from '../provider/provider-component';
 
-export class HmiCounter extends BaseElement {
-  private _count: number = 0;
+export class HmiCounter extends ProviderComponent<number> {
   private counterSpan: HTMLSpanElement | null = null;
 
   constructor() {
     super();
+    const shadow = this.attachShadow({ mode: 'open' });
 
-    // Skip DOM operations in non-browser environments
-    if (!isBrowser) return;
+    // Create a simple UI for displaying the PV value.
+    const container = document.createElement('div');
+    container.style.fontFamily = 'sans-serif';
 
-    // Attach a shadow root for encapsulation
-    const shadow = (this as unknown as HTMLElement).attachShadow({
-      mode: 'open',
-    });
-
-    // Create a wrapper div for styling
-    const wrapper = document.createElement('div');
-    wrapper.style.display = 'inline-block';
-    wrapper.style.padding = '10px';
-    wrapper.style.border = '1px solid #ccc';
-    wrapper.style.borderRadius = '4px';
-    wrapper.style.fontFamily = 'sans-serif';
-
-    // Create the decrement button
-    const decrementButton = document.createElement('button');
-    decrementButton.textContent = '–';
-    decrementButton.addEventListener('click', () => this.decrement());
-
-    // Create the span to show the count
     this.counterSpan = document.createElement('span');
-    this.counterSpan.textContent = this._count.toString();
-    this.counterSpan.style.margin = '0 10px';
+    this.counterSpan.textContent = '0';
 
-    // Create the increment button
-    const incrementButton = document.createElement('button');
-    incrementButton.textContent = '+';
-    incrementButton.addEventListener('click', () => this.increment());
-
-    // Assemble the elements
-    wrapper.appendChild(decrementButton);
-    wrapper.appendChild(this.counterSpan);
-    wrapper.appendChild(incrementButton);
-    shadow.appendChild(wrapper);
+    container.appendChild(this.counterSpan);
+    shadow.appendChild(container);
   }
 
-  increment() {
-    if (!isBrowser) return;
-    this._count++;
-    if (this.counterSpan) {
-      this.counterSpan.textContent = this._count.toString();
-    }
-  }
-
-  decrement() {
-    if (!isBrowser) return;
-    this._count--;
-    if (this.counterSpan) {
-      this.counterSpan.textContent = this._count.toString();
+  protected onDataUpdate(): void {
+    if (this.data && typeof this.data.value === 'number' && this.counterSpan) {
+      this.counterSpan.textContent = this.data.value.toExponential(2);
     }
   }
 }
 
-// Only register the component in browser environments
-if (isBrowser) {
-  customElements.define(
-    'hmi-counter',
-    HmiCounter as unknown as CustomElementConstructor,
-  );
-}
+customElements.define('hmi-counter', HmiCounter);

@@ -1,11 +1,7 @@
-export interface KeyedDataProvider<T = any> {
-  /**
-   * Subscribe to updates for a specific key.
-   */
-  subscribe(key: string, callback: (data: T) => void): void;
+// src/providers/keyed-data-provider.ts
+import { Message } from './message';
 
-  /**
-   * Unsubscribe from updates for a specific key.
-   */
-  unsubscribe(key: string, callback: (data: T) => void): void;
+export interface KeyedDataProvider {
+  subscribe<T>(key: string, callback: (msg: Message<T>) => void): void;
+  unsubscribe<T>(key: string, callback: (msg: Message<T>) => void): void;
 }

@@ -51,11 +51,19 @@
           <hmi-sidebar>tady budou alererty</hmi-sidebar>
         </div>
         <div class="content">
-          <hmi-pane> tady bude obsah </hmi-pane>
+          <hmi-pane>
+            <hmi-counter pvname="AI_10"></hmi-counter>
+            <hmi-counter pvname="AI_11"></hmi-counter>
+            <hmi-counter pvname="AI_12"></hmi-counter>
+            <hmi-counter pvname="AI_13"></hmi-counter>
+          </hmi-pane>
         </div>
       </main>
     </div>
 
+    <!-- First, load the provider setup -->
+    <script type="module" src="./demo/setup-provider.ts"></script>
+    <!-- Then load the library entry point -->
     <script type="module" src="./src/index.ts"></script>
   </body>
 </html>

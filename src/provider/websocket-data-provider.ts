@@ -28,11 +28,24 @@ export class WebSocketDataProvider implements KeyedDataProvider {
    * Subscribe to updates for a given key.
    * The generic parameter T describes the expected type of msg.value.
    */
-  subscribe<T>(key: string, callback: (data: Message<T>) => void): void {
+  subscribe<T>(key: string, callback: (msg: Message<T>) => void): void {
     if (!this.subscribers[key]) {
       this.subscribers[key] = [];
-      // Send subscription request to the server.
-      this.ws.send(JSON.stringify({ type: 'subscribe', name: key }));
+      const sendSubscription = () => {
+        // Before sending, double-check that the connection is open.
+        if (this.ws.readyState === WebSocket.OPEN) {
+          this.ws.send(JSON.stringify({ type: 'subscribe', pvs: [key] }));
+        } else {
+          console.warn(`WebSocket not open when trying to subscribe to ${key}`);
+        }
+      };
+
+      if (this.ws.readyState === WebSocket.OPEN) {
+        sendSubscription();
+      } else {
+        // If the connection is not yet open, wait for the 'open' event.
+        this.ws.addEventListener('open', sendSubscription, { once: true });
+      }
     }
     this.subscribers[key].push(callback as (data: unknown) => void);
   }
@@ -51,4 +64,9 @@ export class WebSocketDataProvider implements KeyedDataProvider {
       delete this.subscribers[key];
     }
   }
+}
+
+// Factory function to create a provider instance with a given URL.
+export function createWsProvider(url: string): WebSocketDataProvider {
+  return new WebSocketDataProvider(url);
 }
