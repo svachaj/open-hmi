@@ -1,6 +1,6 @@
 {
   "name": "open-hmi",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "A simple library of pure web components for HMIs written in TypeScript and built with Vite.",
   "main": "dist/open-hmi.umd.js",
   "module": "dist/open-hmi.es.js",

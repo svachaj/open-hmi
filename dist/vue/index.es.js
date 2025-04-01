@@ -1,7 +1,9 @@
-import { HmiCounter as m, HmiNavbar as r, HmiPane as i, default as o } from "../open-hmi.es.js";
+import { HmiCounter as a, HmiNavbar as i, HmiPane as m, HmiSidebar as o, createWsProvider as t, default as H } from "../open-hmi.es.js";
 export {
-  m as HmiCounter,
-  r as HmiNavbar,
-  i as HmiPane,
-  o as default
+  a as HmiCounter,
+  i as HmiNavbar,
+  m as HmiPane,
+  o as HmiSidebar,
+  t as createWsProvider,
+  H as default
 };
