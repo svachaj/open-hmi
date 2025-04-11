@@ -4,4 +4,5 @@ export interface Message<T = any> {
   value: T;
   severity: number;
   timestamp: number;
+  ok: boolean;
 }

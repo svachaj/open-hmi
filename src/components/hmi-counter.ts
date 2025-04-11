@@ -20,8 +20,15 @@ export class HmiCounter extends ProviderComponent<number> {
   }
 
   protected onDataUpdate(): void {
-    if (this.data && typeof this.data.value === 'number' && this.counterSpan) {
+    if (
+      this.data &&
+      this.data.ok &&
+      typeof this.data.value === 'number' &&
+      this.counterSpan
+    ) {
       this.counterSpan.textContent = this.data.value.toExponential(2);
+    } else if (this.data && !this.data.ok && this.counterSpan) {
+      this.counterSpan.textContent = 'N/A';
     }
   }
 }

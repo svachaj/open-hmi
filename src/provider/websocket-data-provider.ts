@@ -9,6 +9,19 @@ export class WebSocketDataProvider implements KeyedDataProvider {
   constructor(url: string) {
     this.ws = new WebSocket(url);
 
+    this.ws.onclose = () => {
+      console.log('WebSocket connection closed');
+      // Optionally, you could implement reconnection logic here.
+    };
+    this.ws.onerror = (error) => {
+      console.error('WebSocket error:', error);
+      // Optionally, you could implement error handling logic here.
+    };
+    this.ws.onopen = () => {
+      console.log('WebSocket connection opened');
+      // Optionally, you could send a subscription message here if needed.
+    };
+
     this.ws.addEventListener('message', (event) => {
       try {
         // Parse the incoming message as Message<any>
