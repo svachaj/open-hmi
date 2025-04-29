@@ -11,6 +11,8 @@ export class HmiCounter extends ProviderComponent<number> {
     // Create a simple UI for displaying the PV value.
     const container = document.createElement('div');
     container.style.fontFamily = 'sans-serif';
+    container.style.padding = '10px';
+    container.style.border = '1px solid #ccc';
 
     this.counterSpan = document.createElement('span');
     this.counterSpan.textContent = '0';
