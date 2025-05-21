@@ -1,3 +1,7 @@
+# Moved to a new repo:
+[official eli eric hmi repository](https://github.com/eli-eric/eli-hmi)
+
+
 # OpenHMI
 
 [![Tests](https://github.com/svachaj/open-hmi/actions/workflows/test.yml/badge.svg)](https://github.com/svachaj/open-hmi/actions/workflows/test.yml)
